@@ -15,3 +15,27 @@
 3. 分析器解析SQL语句，分为多个字段（命令）解析，分为词法和语法分析，前者提取关键字，后者检查语法错误
 4. 优化器优化SQL，比如优化索引查询方式等等，然后**检查权限**，执行
 5. 引擎将结果返回给Server层（回表），然后判断是否满足查询条件
+## weak_ptr如何解决循环引用
+weak_ptr构造一个对象不会增加引用计数，比如：
+'''C++
+shared_ptr<A> a;
+weak_ptr<A> b;
+'''
+b不会增加A对象引用计数，因此释放a就会调用析构函数释放掉b。
+注意weak_ptr是可以通过lock()方法提升为强引用指针
+## git rebase 和 merge的区别
+git checkout A
+git rebase B
+将B的根拼接到A最新的位置后面
+A ：a->b->c
+B ：d->e->f
+rebase:a->b->c->d->e->f
+
+git checkout A
+git merge B (把B merge 到A)
+A ：a->b->c
+B ：d->e->f
+rebase:
+      |c|->d->e->f
+a->b->|c|
+rebase会把当前分支的根连接到要合并分支最新的节点，从而变成同一条流
