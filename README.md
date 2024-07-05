@@ -39,3 +39,13 @@ rebase:
       |c|->d->e->f
 a->b->|c|
 rebase会把当前分支的根连接到要合并分支最新的节点，从而变成同一条流
+
+## SQL学习
+### 查询
+1. SELECT * FROM table WHERE feature <> 2 ORDER BY feature; （排序）
+2. SELECT * FROM table DISTINCT WHERE feature = 2 ORDER BY feature DESC; (去重，降序)
+### 连接
+1. SELECT * FROM table1 JOIN table2 ON table1.feature = table2.feature；（直接合并，如果不匹配的行，比如有一列属性为空，会被忽略）
+2. SELECT * FROM table1 LEFT JOIN table 2 ON  table1.feature = table2.feature; (合并，但是不匹配的行也会被放进来，只不过为空的会被写为NULL，注意这个是保留所有table1的行)
+3. SELECT * FROM table1 RIGHT JOIN table 2 ON  table1.feature = table2.feature;(合并，但是不匹配的行也会被放进来，只不过为空的会被写为NULL，注意这个是保留所有table2的行)
+
