@@ -50,3 +50,6 @@ rebase会把当前分支的根连接到要合并分支最新的节点，从而�
 3. SELECT * FROM table1 RIGHT JOIN table 2 ON  table1.feature = table2.feature;(合并，但是不匹配的行也会被放进来，只不过为空的会被写为NULL，注意这个是保留所有table2的行)
 4. GROUP BY feature(聚合：将结果按照指定的列进行聚合，如果不加可能查询结果会少)
 5. DATEDIFF(A, B)= 1  (时间差，得到满足B-A的日期为1的条件)
+### 自连接和交叉连接
+自连接就是只用自身表，但是需要取别名
+交叉连接：两张表，生成笛卡尔积，也就是交集
