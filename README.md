@@ -55,3 +55,111 @@ rebase会把当前分支的根连接到要合并分支最新的节点，从而�
 交叉连接：两张表，生成笛卡尔积，也就是交集
 ### 创建一张新表查表
 SELECT * FROM (SELECT feature FROM table1 WHERE feature IS NULL) as a; 
+#### 题目：1280. 学生们参加各科测试的次数
+输入：
+Students table:
++------------+--------------+
+| student_id | student_name |
++------------+--------------+
+| 1          | Alice        |
+| 2          | Bob          |
+| 13         | John         |
+| 6          | Alex         |
++------------+--------------+
+Subjects table:
++--------------+
+| subject_name |
++--------------+
+| Math         |
+| Physics      |
+| Programming  |
++--------------+
+Examinations table:
++------------+--------------+
+| student_id | subject_name |
++------------+--------------+
+| 1          | Math         |
+| 1          | Physics      |
+| 1          | Programming  |
+| 2          | Programming  |
+| 1          | Physics      |
+| 1          | Math         |
+| 13         | Math         |
+| 13         | Programming  |
+| 13         | Physics      |
+| 2          | Math         |
+| 1          | Math         |
++------------+--------------+
+输出：
++------------+--------------+--------------+----------------+
+| student_id | student_name | subject_name | attended_exams |
++------------+--------------+--------------+----------------+
+| 1          | Alice        | Math         | 3              |
+| 1          | Alice        | Physics      | 2              |
+| 1          | Alice        | Programming  | 1              |
+| 2          | Bob          | Math         | 1              |
+| 2          | Bob          | Physics      | 0              |
+| 2          | Bob          | Programming  | 1              |
+| 6          | Alex         | Math         | 0              |
+| 6          | Alex         | Physics      | 0              |
+| 6          | Alex         | Programming  | 0              |
+| 13         | John         | Math         | 1              |
+| 13         | John         | Physics      | 1              |
+| 13         | John         | Programming  | 1              |
++------------+--------------+--------------+----------------+
+解释：
+结果表需包含所有学生和所有科目（即便测试次数为0）：
+Alice 参加了 3 次数学测试, 2 次物理测试，以及 1 次编程测试；
+Bob 参加了 1 次数学测试, 1 次编程测试，没有参加物理测试；
+Alex 啥测试都没参加；
+John  参加了数学、物理、编程测试各 1 次。
+1. 首先需要统计每个人考每科的次数，使用Examinations表即可完成:
+    SELECT Examinations.student_id, Examinations.subject_name， COUNT(*) AS attended_exams FROM Examinations GROUP BY Examinations.student_id, Examinations.subject_name;
+    | student_id | subject_name | attended_exams |
+    | ---------- | ------------ | -------------- |
+    | 1          | Math         | 3              |
+    | 1          | Physics      | 2              |
+    | 1          | Programming  | 1              |
+    | 2          | Programming  | 1              |
+    | 13         | Math         | 1              |
+    | 13         | Programming  | 1              |
+    | 13         | Physics      | 1              |
+    | 2          | Math         | 1              |
+2. 可以看到少了6，因为6的结果是0，默认会不记录，因此需要使用一张全记录表来匹配：
+    SELECT * FROM Students CROSS JOIN Subjects
+    | student_id | student_name | subject_name |
+    | ---------- | ------------ | ------------ |
+    | 1          | Alice        | Programming  |
+    | 1          | Alice        | Physics      |
+    | 1          | Alice        | Math         |
+    | 2          | Bob          | Programming  |
+    | 2          | Bob          | Physics      |
+    | 2          | Bob          | Math         |
+    | 13         | John         | Programming  |
+    | 13         | John         | Physics      |
+    | 13         | John         | Math         |
+    | 6          | Alex         | Programming  |
+    | 6          | Alex         | Physics      |
+    | 6          | Alex         | Math         |
+3. 接下来只需要将两个表拼接，而且一定要保留第二张表的所有内容，因此将第一张表LEFT JOIN 即可，然后由于有一些值会被填充为NULL，所以将其替换为0即可
+    SELECT Students.student_id, Students.student_name,sub.subject_name, IFNULL(a.attended_exams,0) as attended_exams
+    FROM Students
+    CROSS JOIN Subjects
+    LEFT JOIN (SELECT Examinations.student_id, Examinations.subject_name， COUNT(*) AS attended_exams FROM Examinations GROUP BY Examinations.student_id, Examinations.subject_name) AS a
+    ORDER BY Students.student_id, sub.subject_name;
+    | student_id | student_name | subject_name | attended_exams |
+    | ---------- | ------------ | ------------ | -------------- |
+    | 1          | Alice        | Math         | 3              |
+    | 1          | Alice        | Physics      | 2              |
+    | 1          | Alice        | Programming  | 1              |
+    | 2          | Bob          | Math         | 1              |
+    | 2          | Bob          | Physics      | 0              |
+    | 2          | Bob          | Programming  | 1              |
+    | 6          | Alex         | Math         | 0              |
+    | 6          | Alex         | Physics      | 0              |
+    | 6          | Alex         | Programming  | 0              |
+    | 13         | John         | Math         | 1              |
+    | 13         | John         | Physics      | 1              |
+    | 13         | John         | Programming  | 1              |
+
+   
