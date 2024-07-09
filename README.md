@@ -53,3 +53,5 @@ rebase会把当前分支的根连接到要合并分支最新的节点，从而�
 ### 自连接和交叉连接
 自连接就是只用自身表，但是需要取别名
 交叉连接：两张表，生成笛卡尔积，也就是交集
+### 创建一张新表查表
+SELECT * FROM (SELECT feature FROM table1 WHERE feature IS NULL) as a; 
