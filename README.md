@@ -40,6 +40,12 @@ rebase:
 a->b->|c|
 rebase会把当前分支的根连接到要合并分支最新的节点，从而变成同一条流
 
+git提交方法：
+git add .
+git commit -m "first commit" 
+git rebase -i HEAD~n  会把最近n个提交弄出来，可以选择合并这些节点为一个提交等等，但是历史记录不会丢失
+git push -f origin br_a  强推到分支br_a
+
 ## SQL学习
 ### 查询
 1. SELECT * FROM table WHERE feature <> 2 ORDER BY feature; （排序）
