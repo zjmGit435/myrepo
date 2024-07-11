@@ -64,42 +64,40 @@ SELECT * FROM (SELECT feature FROM table1 WHERE feature IS NULL) as a;
 #### 题目：1280. 学生们参加各科测试的次数
 输入：
 Students table:
-+------------+--------------+
+
 | student_id | student_name |
-+------------+--------------+
+|------------|--------------|
 | 1          | Alice        |
 | 2          | Bob          |
 | 13         | John         |
 | 6          | Alex         |
-+------------+--------------+
+
 Subjects table:
-+--------------+
 | subject_name |
-+--------------+
+|--------------|
 | Math         |
 | Physics      |
 | Programming  |
-+--------------+
+
 Examinations table:
-+------------+--------------+
-| student_id | subject_name |
-+------------+--------------+
-| 1          | Math         |
-| 1          | Physics      |
-| 1          | Programming  |
-| 2          | Programming  |
-| 1          | Physics      |
-| 1          | Math         |
-| 13         | Math         |
-| 13         | Programming  |
-| 13         | Physics      |
-| 2          | Math         |
-| 1          | Math         |
-+------------+--------------+
+  | student_id | subject_name |
+  |------------|--------------|
+  | 1          | Math         |
+  | 1          | Physics      |
+  | 1          | Programming  |
+  | 2          | Programming  |
+  | 1          | Physics      |
+  | 1          | Math         |
+  | 13         | Math         |
+  | 13         | Programming  |
+  | 13         | Physics      |
+  | 2          | Math         |
+  | 1          | Math         |
+
 输出：
-  +------------+--------------+--------------+----------------+
+
   | student_id | student_name | subject_name | attended_exams |
-  +------------+--------------+--------------+----------------+
+  |------------|--------------|--------------|----------------|
   | 1          | Alice        | Math         | 3              |
   | 1          | Alice        | Physics      | 2              |
   | 1          | Alice        | Programming  | 1              |
@@ -112,7 +110,7 @@ Examinations table:
   | 13         | John         | Math         | 1              |
   | 13         | John         | Physics      | 1              |
   | 13         | John         | Programming  | 1              |
-  +------------+--------------+--------------+----------------+
+
 解释：
 结果表需包含所有学生和所有科目（即便测试次数为0）：
 Alice 参加了 3 次数学测试, 2 次物理测试，以及 1 次编程测试；
