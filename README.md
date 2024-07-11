@@ -97,22 +97,22 @@ Examinations table:
 | 1          | Math         |
 +------------+--------------+
 输出：
-+------------+--------------+--------------+----------------+
-| student_id | student_name | subject_name | attended_exams |
-+------------+--------------+--------------+----------------+
-| 1          | Alice        | Math         | 3              |
-| 1          | Alice        | Physics      | 2              |
-| 1          | Alice        | Programming  | 1              |
-| 2          | Bob          | Math         | 1              |
-| 2          | Bob          | Physics      | 0              |
-| 2          | Bob          | Programming  | 1              |
-| 6          | Alex         | Math         | 0              |
-| 6          | Alex         | Physics      | 0              |
-| 6          | Alex         | Programming  | 0              |
-| 13         | John         | Math         | 1              |
-| 13         | John         | Physics      | 1              |
-| 13         | John         | Programming  | 1              |
-+------------+--------------+--------------+----------------+
+  +------------+--------------+--------------+----------------+
+  | student_id | student_name | subject_name | attended_exams |
+  +------------+--------------+--------------+----------------+
+  | 1          | Alice        | Math         | 3              |
+  | 1          | Alice        | Physics      | 2              |
+  | 1          | Alice        | Programming  | 1              |
+  | 2          | Bob          | Math         | 1              |
+  | 2          | Bob          | Physics      | 0              |
+  | 2          | Bob          | Programming  | 1              |
+  | 6          | Alex         | Math         | 0              |
+  | 6          | Alex         | Physics      | 0              |
+  | 6          | Alex         | Programming  | 0              |
+  | 13         | John         | Math         | 1              |
+  | 13         | John         | Physics      | 1              |
+  | 13         | John         | Programming  | 1              |
+  +------------+--------------+--------------+----------------+
 解释：
 结果表需包含所有学生和所有科目（即便测试次数为0）：
 Alice 参加了 3 次数学测试, 2 次物理测试，以及 1 次编程测试；
