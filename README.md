@@ -46,6 +46,7 @@ git commit -m "first commit"
 git rebase -i HEAD~n  会把最近n个提交弄出来，可以选择合并这些节点为一个提交等等，但是历史记录不会丢失
 git push -f origin br_a  强推到分支br_a
 
+之前的分支已合并，需要重新merge
 ## SQL学习
 ### 查询
 1. SELECT * FROM table WHERE feature <> 2 ORDER BY feature; （排序）
