@@ -46,6 +46,11 @@ git commit -m "first commit"
 git rebase -i HEAD~n  会把最近n个提交弄出来，可以选择合并这些节点为一个提交等等，但是历史记录不会丢失
 git push -f origin br_a  强推到分支br_a
 
+git pull main br_Master_BE_Group --rebase  将自己更新到最新的分支
+git push -f origin br_Master_BE_Group:br_z50039730_macro_check_v3  强推更新
+这两步是连贯的，如果落后太多，就执行这两步，让自己和较新的分支一致
+
+
 之前的分支已合并，需要重新merge
 ## SQL学习
 ### 查询
